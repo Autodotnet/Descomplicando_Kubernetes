@@ -45,3 +45,7 @@ Fazendo o dry run para criar o yaml
 kubectl run --image nginx --port 80 giropops --dry-run=client -o yaml > pod.yaml
 
 k apply -f pod.yaml
+
+# Criando cluster usando o kind com pod nginx
+
+kind create cluster --config kind-multinode-cluster.yaml
