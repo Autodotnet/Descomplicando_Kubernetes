@@ -1,0 +1,16 @@
+Comandos dia 2
+
+### Criar namespace para o pod
+
+``` bash
+k create namespace treinamento-ch2
+``` 
+### Acessa o Pod
+
+``` bash
+k exec -ti giropops -- bash
+``` 
+
+### Erros encontrados
+
+Error from server (NotFound): error when creating "pod-faminto.yaml": namespaces "treinamento-ch2" not found
