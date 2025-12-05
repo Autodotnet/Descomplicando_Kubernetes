@@ -18,6 +18,7 @@ k create namespace giropopos --dry-run=client -o yaml > namespace.yaml
 
 Quando atualizamos um imagem o K8s vai recriando os container de forma gradual para não impactar a aplicação, conforme a saída abaixo.
 
+``` bash
 
 allan@ALLAN-Z:~/Descomplicando_Kubernetes/dia-3$ k get pods -n strigus -w
 NAME                                READY   STATUS              RESTARTS   AGE
@@ -42,7 +43,7 @@ nginx-deployment-6c4849c57d-kxcdt   1/1     Running             0          5s
 nginx-deployment-6c4849c57d-dzvsz   1/1     Running             0          5s
 nginx-deployment-6c4849c57d-bpwss   1/1     Running             0          6s
 nginx-deployment-6c4849c57d-djvjn   1/1     Running             0          6s
-
+```
 ## Estratégia de deployment
 
 1. Rolling Update
