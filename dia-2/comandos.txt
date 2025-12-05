@@ -10,7 +10,101 @@ k create namespace treinamento-ch2
 ``` bash
 k exec -ti giropops -- bash
 ``` 
+``` bash
+k logs -f giropops
+``` 
+
+
 
 ### Erros encontrados
 
 Error from server (NotFound): error when creating "pod-faminto.yaml": namespaces "treinamento-ch2" not found
+
+Utilizando o WSL ele só fica em CrashloopBack, utilizei o Debian e recebio o status OOMKilled.
+
+``` bash
+root@linuxtips:~# k describe pod pod-faminto -n treinamento-ch2
+Name:             pod-faminto
+Namespace:        treinamento-ch2
+Priority:         0
+Service Account:  default
+Node:             kind-worker/172.18.0.4
+Start Time:       Thu, 27 Nov 2025 21:11:39 -0300
+Labels:           <none>
+Annotations:      <none>
+Status:           Running
+IP:               10.244.1.3
+IPs:
+  IP:  10.244.1.3
+Containers:
+  stress:
+    Container ID:  containerd://8c98929a7e3414767e766750c94246c3e655db31f31594b497693bc77470fddc
+    Image:         polinux/stress
+    Image ID:      docker.io/polinux/stress@sha256:b6144f84f9c15dac80deb48d3a646b55c7043ab1d83ea0a697c09097aaad21aa
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      stress
+      --vm
+      1
+      --vm-bytes
+      250M
+      --vm-hang
+      1
+    State:          Waiting
+      Reason:       CrashLoopBackOff
+    Last State:     Terminated
+      Reason:       OOMKilled
+      Exit Code:    137
+      Started:      Thu, 27 Nov 2025 21:11:53 -0300
+      Finished:     Thu, 27 Nov 2025 21:11:53 -0300
+    Ready:          False
+    ```
+
+    Saída do comando kubectl describe pod giropops após colocar EmptyDir
+
+    allan@ALLAN-Z:~/Descomplicando_Kubernetes/dia-2$ k describe pod giropops
+Name:             giropops
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             kind-worker2/172.20.0.2
+Start Time:       Fri, 28 Nov 2025 20:45:01 -0300
+Labels:           run=giropops
+Annotations:      <none>
+Status:           Running
+IP:               10.244.2.3
+IPs:
+  IP:  10.244.2.3
+Containers:
+  webserver:
+    Container ID:   containerd://867b13bfbef1186c41fb8789eff57f29622488edbf3428ed07b9df7b4c4cd502
+    Image:          nginx
+    Image ID:       docker.io/library/nginx@sha256:553f64aecdc31b5bf944521731cd70e35da4faed96b2b7548a3d8e2598c52a42
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Fri, 28 Nov 2025 20:45:03 -0300
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     1
+      memory:  128Mi
+    Requests:
+      cpu:        500m
+      memory:     64Mi
+    Environment:  <none>
+    Mounts:
+      /giropops from primeiro-dir (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-jcs5t (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  primeiro-dir:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     
+    SizeLimit:  256Mi

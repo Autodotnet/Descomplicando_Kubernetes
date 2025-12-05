@@ -49,7 +49,7 @@ Aplique o manifesto e verifique se o Pod fica com status Running.
 
 - Quando o Pod foi morto na "Parte 2", qual mecanismo do Linux (que vimos no Cap 1) foi acionado pelo Kubernetes/Container Runtime para parar o processo?
     
-    **O Kernel**
+    **O Kernel** Correção - Cgroup
 
 - Qual a diferença prática entre definir um request de 100Mi e um limit de 200Mi? O que o Scheduler usa para decidir onde colocar o Pod?
 
@@ -60,3 +60,4 @@ Aplique o manifesto e verifique se o Pod fica com status Running.
 
 ## Dúvidas
 Eu deveria ver OOMKilled na saída do comando `kubectl logs pod-faminto -n treinamento-ch2`
+O problema era no WSL, usando uma VM com Debian consegui ver o OOMKilled

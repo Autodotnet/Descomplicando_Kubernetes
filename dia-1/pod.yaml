@@ -3,12 +3,12 @@ kind: Pod
 metadata:
   creationTimestamp: null
   labels:
-    run: giropops
-  name: giropops
+    run: giropops2
+  name: giropops2
 spec:
   containers:
   - image: nginx
-    name: giropops
+    name: giropops2
     ports:
     - containerPort: 80
     resources: {}

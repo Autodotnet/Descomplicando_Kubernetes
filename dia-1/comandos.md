@@ -131,3 +131,13 @@ spec:
 kubectl logs nginx-pod -n k8s-demo
 
 ```
+
+### Joga saída do comando get pods para yaml 'output'
+``` bash
+kubectl get pods -o yaml
+kubectl delete pods <name>
+
+```
+## Busybox
+``` bash
+kubectl run -ti girus --image busybox
