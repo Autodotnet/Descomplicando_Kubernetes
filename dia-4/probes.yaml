@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: memory-eater-com-limites
+  labels:
+    app: memory-eater
+    scenario: com-limites
+spec:
+  containers:
+  - name: app
+    image: linuxtips/memory-eater:0.3
+    resources:
+      requests:
+        memory: "128Mi"
+        cpu: "250m"
+      limits:
+        memory: "256Mi"
+        cpu: "500m"
+    startupProbe:
+      httpGet:
+        path: /startupz
+        port: 8080
+      initialDelaySeconds: 5
+      periodSeconds: 3
+      failureThreshold: 10
+
+    # Liveness Probe – Verifica se a aplicação está viva
+    # Se falhar, o container é reiniciado
+    livenessProbe:
+      httpGet:
+        path: /livez
+        port: 8080
+      initialDelaySeconds: 5
+      periodSeconds: 10
+      failureThreshold: 3
+
+    # Readiness Probe – Verifica se está pronta para tráfego
+    # Se falhar, o Pod é removido do Service
+    readinessProbe:
+      httpGet:
+        path: /readyz
+        port: 8080
+      initialDelaySeconds: 5
+      periodSeconds: 5
+      failureThreshold: 3
+  restartPolicy: Always

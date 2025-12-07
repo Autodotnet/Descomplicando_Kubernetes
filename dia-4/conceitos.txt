@@ -1,0 +1,15 @@
+Startup probe﻿ → roda apenas no início, pra garantir que a aplicação conseguiu subir corretamente.
+
+Readiness probe﻿ e Liveness probe﻿ → ficam rodando em loop depois que o container está no ar.
+
+Readiness﻿ checa se pode receber requisições.
+
+Liveness﻿ checa se ainda está saudável — se não estiver, o Kubernetes reinicia o container.
+
+kubectl get pods -n producao -w
+
+kubectl logs memory-eater-com-limites
+
+kubectl events memory-eater-com-limites
+
+Criar um cluster com alocação de recursos no kind

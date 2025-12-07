@@ -1,7 +1,7 @@
 ### Deployment
 
-- Possibilita a criação de replicas dos Pods para distribuir nos nós do nosso cluster.
-- Se acontecer algo com uma das réplicas o ReplicaSet que faz parte do Deployment recria o pod.
+O Deployment é um objeto que representa uma aplicação no K8s, ele permite também fazer rollback de uma versão anterior de uma aplicação se algo falhar.
+Sua função é manter o estado desejado dos containers se algo sai do que foi definido antes ele corrigi para manter o estado. Como a chama dentro do lampião, não importa se ela diminuir ou aumentar ela sempre vai se manter em seu estado natural.
 
 Depois de criar o Deployment pode usar 
 ``` bash
@@ -13,6 +13,10 @@ k create deployment --image nginx --replicas 3 nginx-deployment
 k exec -ti nginx-deployment-54789fb4df-kbbsg -- bash --nginx -v
 
 k create namespace giropopos --dry-run=client -o yaml > namespace.yaml
+
+rollout undo
+
+deixar deploys sempre em pause
 
 ### Atualizar o Deployment
 
@@ -47,7 +51,7 @@ nginx-deployment-6c4849c57d-djvjn   1/1     Running             0          6s
 ## Estratégia de deployment
 
 1. Rolling Update
-- Nessa estratégia você define quantos pods você vai recriar por vez e quantos pod a mais vai ter além do definida em Replica.
+- Nessa estratégia você define quantos pods você vai recriar por vez e quantos pod a mais vai ter além dos definidos em Replica.
 
 
 
