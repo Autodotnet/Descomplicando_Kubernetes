@@ -1,4 +1,4 @@
-# Subindo cluster k8s usando kvm-compose
+# Criando Cluster k8s com kubeadm usando VM's do KVM-Compose
 
 O KVM compose é uma forma de gerenciar máquinas virtuais Kernel Virtual Machines (KVM) como se fossem containers, similiar ao Docker Compose. 
 
@@ -145,25 +145,32 @@ sudo systemctl enable --now kubelet
 
 ## Iniciando o cluster e adicionando os nós no Cluster
 
-## Aplicar no CP
-sudo kubeadm init --pod-network-cidr=10.10.0.0/16 --apiserver-advertise-address=<O IP QUE VAI FALAR COM OS NODES>
+Para iniciar o cluster com kubeadm precisaremos rodar 1 comando no node do Control Plane e outro comando nos nós restantes.
 
-## Aplicar nos Workers
+``` bash
+# Iniciando o cluster a partir do Control Plane
+
+sudo kubeadm init --pod-network-cidr=10.10.0.0/16 --apiserver-advertise-address=(ip da sua vm)
+
+# Configurando os outros nós para se juntarem ao cluster
 
 Quando você aplicar o comando acima ele vai mostrar na saída um comando similar a este abaixo para você possa aplicar nos outros nodes do Cluster sem ser o Control Plane.
 
 sudo kubeadm join 192.168.0.40:6443 --token kyqqvs.tjfzg4ohufj9mx9n \
 	--discovery-token-ca-cert-hash sha256:cb412f1cbaf4f150e8e836a94fdb911264188b48ab5036c1505800cea4266012
 
+# Configurar kube config para utilizar o kubectl
+
 Adicionar só no control plane
   mkdir -p $HOME/.kube
   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
   sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
+```
 
 ## Instalando CNI
 
-Para habilitar e conexão entre os nodes do K8S é preciso instalar um plugin chamados CNI. Existem várias opções como Calico, Cillium e Fannel. 
+Para habilitar a conexão entre os nodes do K8S é preciso instalar um plugin chamados CNI. Existem várias opções como Calico, Cillium e Fannel. 
 
 Para instalar o Cillium use o comando
 
