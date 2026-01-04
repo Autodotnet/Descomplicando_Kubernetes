@@ -1,0 +1,26 @@
+### Erro 1 - Pod não sobe por causa pvc não estar linkado
+
+Events:
+  Type     Reason            Age    From               Message
+  ----     ------            ----   ----               -------
+  Warning  FailedScheduling  2m26s  default-scheduler  0/1 nodes are available: pod has unbound immediate PersistentVolumeClaims. preemption: 0/1 nodes are available: 1 No preemption victims found for incoming pod..
+
+Usando kubectl describe pvc vi que o storageclass estava com o nome errado
+
+vents:
+  Type     Reason              Age                     From                         Message
+  ----     ------              ----                    ----                         -------
+  Warning  ProvisioningFailed  8m27s (x702 over 3h3m)  persistentvolume-controller  storageclass.storage.k8s.io "giropops" not found
+
+Achei o erro! Estava no name dentro de metadata no yaml do StorageClass.
+
+Ordem de criação
+- Storage Class
+- PV
+- PVC
+- Pod com o PVC
+
+### Erro 2 
+
+ormal   Scheduled               103s                 default-scheduler  Successfully assigned default/nginx-deployment-5fcfdf6575-xfbnq to k8s-wrk-01
+  Warning  FailedCreatePodSandBox  103s                 kubelet            Failed to create pod sandbox: rpc error: code = Unknown desc = failed to setup network for sandbox "19d772c4014d97caffd224847555c8a78d5535ea747e790317c1b45e6415f16d": plugin type="calico" failed (add): failed to find plugin "calico" in path [/usr/lib/cni]
