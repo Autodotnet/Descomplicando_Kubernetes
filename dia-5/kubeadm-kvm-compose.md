@@ -179,7 +179,7 @@ Para instalar o Cillium use o comando
 cilium install --version 1.18.5
 ``` 
 
-## Resutaldo 
+## Resultado
 
 Os nodes ficaram prontos para serem usados.
 
