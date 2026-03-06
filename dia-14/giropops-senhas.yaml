@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: giropops-senhas
+  name: giropops-senhas
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: giropops-senhas
+  template:
+    metadata:
+      labels:
+        app: giropops-senhas
+    spec:
+      containers:
+      - image: linuxtips/giropops-senhas:1.0
+        name: giropops-senhas
+        ports:
+        - containerPort: 5000
+        imagePullPolicy: Always
+        resources:
+          limits: 
+            cpu: 0.05
+            memory: 64Mi  
